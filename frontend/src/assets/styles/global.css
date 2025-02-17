@@ -1,0 +1,660 @@
+:root {
+  --border-default-color: black;
+  --border-default-size: 0.35vw; /* Ajuste proporcional del borde */
+
+  /* Colores y tamaños personalizables */
+  --button-border-color: black;
+  --button-border-size: 0.2vw; /* Ajuste proporcional del borde */
+
+  --letter-border-color: black;
+  --letter-border-size: 0.35vw; /* Ajuste proporcional del borde */
+
+  --menu-border-color: rgb(35, 35, 39);
+  --menu-border-size:  0.43vw; /* Ajuste proporcional del borde */
+}
+
+body, html {
+  margin: 0; /* Elimina márgenes predeterminados */
+  padding: 0;
+  height: 100%; /* Asegura que el body ocupe toda la altura de la ventana */
+}
+
+/* Fondo con gradiente pastel */
+.background {
+  position: relative;
+  width: 100vw;
+  height: 100vh; /* Usamos vh para la altura */
+  background: linear-gradient(180deg, #B5EAD7, #f88396);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+/* Contenedor de nubes */
+.clouds {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+/* Nubes tipo pixel-art */
+.cloud {
+  position: absolute;
+  background: white;
+  width: 7vw; /* Ajuste proporcional del ancho */
+  height: 3.5vw; /* Ajuste proporcional del alto */
+  border-radius: 3.5vw; /* Ajuste proporcional del radio */
+  box-shadow:
+    2.1vw 0.7vw 0 white, /* Ajuste proporcional de la sombra */
+    4.3vw 1.1vw 0 white, /* Ajuste proporcional de la sombra */
+    -2.1vw 0.7vw 0 white, /* Ajuste proporcional de la sombra */
+    -4.3vw 1.1vw 0 white; /* Ajuste proporcional de la sombra */
+  opacity: 0.7;
+}
+
+/* Animaciones de las nubes */
+@keyframes move-clouds {
+  from {
+    transform: translateX(100vw);
+  }
+  to {
+    transform: translateX(-100vw);
+  }
+}
+
+.cloud-1 {
+  top: 15%;
+  left: -7vw; /* Ajuste proporcional de la posición */
+  animation: move-clouds 20s linear infinite;
+}
+
+.cloud-2 {
+  top: 50%;
+  left: -14vw; /* Ajuste proporcional de la posición */
+  animation: move-clouds 25s linear infinite;
+}
+
+.cloud-3 {
+  top: 75%;
+  left: -10.5vw; /* Ajuste proporcional de la posición */
+  animation: move-clouds 30s linear infinite;
+}
+
+/* Oscurece el fondo cuando la carta está activa */
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000; /* Asegura que esté por encima de otros elementos */
+}
+
+/* Carta con diseño más realista */
+.letter {
+  background: #f8e8c0; /* Color crema */
+  width: 40%; /* Ancho en porcentaje */
+  max-width: 90%;
+  padding: 1.5vw; /* Ajuste proporcional del relleno */
+  box-shadow: 0.3vw 0.3vw 0.9vw rgba(0, 0, 0, 0.2); /* Ajuste proporcional de la sombra */
+  text-align: center;
+  font-family: 'Press Start 2P', cursive; /* Letra estilo retro */
+  color: #5A3E36;
+  animation: pop-in 0.8s ease-out;
+  --border-color: var(--letter-border-color);
+  --border-size: var(--letter-border-size);
+}
+
+.title-icon {
+  width: 10%;  /* Ajusta el tamaño según prefieras */
+  height: auto; /* Mantiene la proporción */
+  vertical-align: middle;
+  margin: 0 0.3vw;
+  image-rendering: pixelated;
+}
+
+/* Animación de aparición de la carta */
+@keyframes pop-in {
+  from {
+    transform: scale(0.5);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+.pixel-border {
+  box-shadow:
+    0px var(--border-size, var(--border-default-size)) var(--border-color, var(--border-default-color)),
+    0px calc(var(--border-size, var(--border-default-size)) * -1) var(--border-color, var(--border-default-color)),
+    var(--border-size, var(--border-default-size)) 0px var(--border-color, var(--border-default-color)),
+    calc(var(--border-size, var(--border-default-size)) * -1) 0px var(--border-color, var(--border-default-color)),
+    0px calc(var(--border-size, var(--border-default-size)) * 2) rgba(0, 0, 0, 0.22),
+    var(--border-size, var(--border-default-size)) var(--border-size, var(--border-default-size)) rgba(0, 0, 0, 0.22),
+    calc(var(--border-size, var(--border-default-size)) * -1) var(--border-size, var(--border-default-size)) rgba(0, 0, 0, 0.22),
+    inset 0px var(--border-size, var(--border-default-size)) rgba(255, 255, 255, 0.2);
+}
+
+button {
+  color: #ffffff;
+  background-color: #f88396;
+  padding: 1.1vw 2.9vw 1.1vw 2.9vw; /* Ajuste proporcional del relleno */
+  margin: 0.7vw; /* Ajuste proporcional del margen */
+  font-size: 1vw; /* Ajuste proporcional del tamaño de la fuente */
+  font-family: "Press Start 2P", system-ui;
+  cursor: pointer;
+  --border-color: var(--button-border-color);
+  --border-size: var(--button-border-size);
+}
+
+/* Texto de la carta */
+.letter h1 {
+  font-size: 1.4vw; /* Ajuste proporcional del tamaño de la fuente */
+  margin-bottom: 0.7vw; /* Ajuste proporcional del margen */
+}
+
+.letter p {
+  font-size: 0.9vw; /* Ajuste proporcional del tamaño de la fuente */
+  margin-bottom: 0.6vw; /* Ajuste proporcional del margen */
+}
+
+/* Botón de la carta */
+.letter button {
+  display: block;
+  margin: 1.1vw auto; /* Ajuste proporcional del margen */
+  padding: 0.7vw 1.4vw; /* Ajuste proporcional del relleno */
+  font-size: 1.3vw; /* Ajuste proporcional del tamaño de la fuente */
+  background: #f88396;
+  border: none;
+  cursor: pointer;
+  font-family: 'Press Start 2P', cursive; /* Fuente retro para el botón */
+}
+
+.letter button:hover {
+  background: #ffa4a2;
+}
+
+/* Menú principal más amplio */
+.menu {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+  font-family: 'Press Start 2P', cursive;
+  color: #5A3E36;
+  animation: fade-in 0.8s ease-out;
+  width: 60%; /* Más grande */
+  max-width: 600px;
+  padding: 1.4vw; /* Ajuste proporcional del relleno */
+  background: rgba(255, 255, 255, 0.3);
+  box-shadow: 0.3vw 0.3vw 0.7vw rgba(0, 0, 0, 0.1);
+  box-shadow: 0px 0.35vw black, 0px -0.35vw black, 0.35vw 0px black, -0.35vw 0px black, 0px 0.7vw #00000038, 0.35vw 0.35vw #00000038, -0.35vw 0.35vw #00000038, inset 0px 0.35vw #ffffff36 ;
+  --border-color: var(--menu-border-color);
+  --border-size: var(--menu-border-size);
+}
+
+/* Animación del menú */
+@keyframes fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Botones del menú */
+.menu button {
+  display: block;
+  width: 80%;
+  margin: 1.1vw auto; /* Ajuste proporcional del margen */
+  padding: 0.8vw; /* Ajuste proporcional del relleno */
+  font-size: 1.4vw; /* Ajuste proporcional del tamaño de la fuente */
+  background: #f88396;
+  border: 0.14vw solid #f88396; /* Ajuste proporcional del borde */
+  cursor: pointer;
+  font-family: 'Press Start 2P', cursive;
+}
+
+.menu button:hover {
+  background: #ffa4a2;
+}
+
+.slot-machine-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  background-color: #a3cbe6; /* Azul pastel */
+  font-family: 'Press Start 2P', cursive;
+  text-align: center;
+}
+
+h1 {
+  color: #3a3a3a;
+  margin-bottom: 1.4vw; /* Ajuste proporcional del margen */
+  font-size: 2vw;
+}
+
+.slot-machine {
+  position: relative;
+}
+
+.slot-image {
+  width: 69.5vw; /* Ajusta el tamaño de la imagen */
+  cursor: pointer;
+}
+
+:root {
+  --vh: 1vh;
+}
+
+/* Máquina */
+.slot-machine {
+  position: relative;
+  display: inline-block;
+  cursor: pointer;
+  width: 50vw;
+  max-width: 800px;
+  aspect-ratio: 1 / 1;
+}
+
+/* Imagen de la máquina */
+.slot-image {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.fade-enter-active, .fade-leave-active {
+  transition: opacity 0.01s ease;
+}
+
+.fade-enter-from, .fade-leave-to {
+  opacity: 0;
+}
+
+/* Oscurece el fondo cuando la animación está activa */
+.slot-machine.inactive {
+  pointer-events: none;
+}
+
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.1);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.congrats-overlay {
+  position: fixed;
+  bottom: 10%;
+  background: white;
+  padding: 1.4vw; /* Ajuste proporcional del relleno */
+  text-align: center;
+  cursor: pointer;
+  --border-color: var(white);
+  --border-size: var(5px);
+}
+
+.letter-animation {
+  width: 13.9vw; /* Ajuste proporcional del ancho */
+  cursor: pointer;
+}
+
+.prize-card-overlay .letter{
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: #f8e8c0;
+  padding: 1.4vw; /* Ajuste proporcional del relleno */
+  text-align: center;
+  z-index: 2000;
+  --border-color: var(black);
+  --border-size: var(--menu-border-size);
+}
+
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.2); /* Oscurece el fondo */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  backdrop-filter: blur(5px); /* Añade desenfoque al fondo */
+  -webkit-backdrop-filter: blur(5px); /* Para compatibilidad con Safari */
+}
+
+/* Contenedor principal de la selección de monedas */
+.coin-selection-overlay {
+  background: #f8e8c0;
+  background-color: rgba(255, 240, 201, 0.85);/* Blanco con 90% de opacidad */
+  padding: 1.4vw; /* Ajuste proporcional del relleno */
+  image-rendering: pixelated;
+  position: absolute;
+  width: 60%;
+  max-width: 600px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  z-index: 1001;
+  box-shadow: 0px 0px 0.7vw rgba(0, 0, 0, 0.5);
+  box-shadow: 0px 0.35vw #633103, 0px -0.35vw #633103, 0.35vw 0px #633103, -0.35vw 0px #633103, 0px 0.7vw #00000038, 0.35vw 0.35vw #00000038, -0.35vw 0.35vw #00000038, inset 0px 0.35vw #ffffff36 ;
+}
+
+button, .letter, .menu, .prize-card-overlay, .congrats-overla{
+  box-shadow:
+    0px var(--border-size) var(--border-color),
+    0px calc(var(--border-size) * -1) var(--border-color),
+    var(--border-size) 0px var(--border-color),
+    calc(var(--border-size) * -1) 0px var(--border-color),
+    0px calc(var(--border-size) * 2) rgba(0, 0, 0, 0.22),
+    var(--border-size) var(--border-size) rgba(0, 0, 0, 0.22),
+    calc(var(--border-size) * -1) var(--border-size) rgba(0, 0, 0, 0.22),
+    inset 0px var(--border-size) rgba(255, 255, 255, 0.2);
+}
+
+.congrats-overlay {
+  color: #000000;
+  background-color: white;
+  padding: 1.1vw 2.9vw 1.1vw 2.9vw; /* Ajuste proporcional del relleno */
+  margin: 0.7vw; /* Ajuste proporcional del margen */
+  font-size: 1vw; /* Ajuste proporcional del tamaño de la fuente */
+  font-family: "Press Start 2P", system-ui;
+  border: 0;
+  box-shadow: 0px 0.28vw black, 0px -0.28vw black, 0.28vw 0px black, -0.28vw 0px black, 0px 0.7vw #00000038, 0.35vw 0.35vw #00000038, -0.35vw 0.35vw #00000038, inset 0px 0.35vw #ffffff36 ;
+  cursor: pointer;
+}
+
+button:active {
+  transform: translateY(5px);
+  box-shadow: 0px 5px black, 0px -5px black, 5px 0px black, -5px 0px black,inset 0px 5px #00000038;
+}
+
+.continue-button {
+  background: none;
+  border: none;
+  color: black;
+  font-size: 0.8vw; /* Ajuste proporcional del tamaño de la fuente */
+  cursor: pointer;
+  text-align: right;
+  font-family: 'Press Start 2P', cursive;
+}
+
+.continue-button:hover {
+  text-decoration: underline;
+}
+
+.prize-card-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.2);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  backdrop-filter: blur(5px);
+}
+
+.coin-container {
+  display: flex;
+  justify-content: center;
+  gap: 1.4vw; /* Ajuste proporcional del espacio entre monedas */
+}
+
+.coin-wrapper {
+  position: relative;
+  width: 10.4vw; /* Ajuste proporcional del ancho */
+  height: 10.4vw; /* Ajuste proporcional del alto */
+}
+
+.coin,
+.coin-hover {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  transition: opacity 0.3s ease;
+}
+
+.coin {
+  opacity: 1;
+}
+
+.coin-hover {
+  opacity: 0;
+}
+
+.coin-wrapper:hover .coin {
+  opacity: 0;
+}
+
+.coin-wrapper:hover .coin-hover {
+  opacity: 1;
+}
+
+.coin-wrapper.gold-coin:hover {
+  cursor: not-allowed;
+}
+
+/* Estilo para las monedas con cursor de puntero */
+.coin-wrapper {
+  cursor: pointer;
+}
+
+.prize-card-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.1);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 10;
+}
+
+.congrats-text {
+  font-size: 0.8vw; /* Ajuste proporcional del tamaño de la fuente */
+}
+
+.tier-icon {
+  width: 50%;
+  margin-top: 5%;
+}
+
+.location-icon {
+  width: 40%;
+  margin-top: 10%;
+  position: absolute;
+}
+
+.prize-card {
+  background-image: url("@/assets/prize_card.png");
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+
+  /* Tamaño relativo a la pantalla */
+  width: 60vw;  /* 60% del ancho de la pantalla */
+  max-width: 500px; /* Tamaño máximo */
+  height: 80vh; /* 80% de la altura de la pantalla */
+  max-height: 700px; /* Tamaño máximo */
+
+  position: relative;
+  padding: 5%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  opacity: 0.93;
+}
+
+.icono {
+  position: absolute;
+  top: 10vh;
+  left: 12.5vh; /* Ajusta el porcentaje según la posición en la imagen */
+  width: 25vh; /* Ajusta el ancho */
+  height: 10vh; /* Ajusta la altura */
+  justify-content: center;
+  align-items: center;
+}
+
+.plan-icon {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: cover;
+  position: absolute;
+  top: 9%;   /* Posición relativa al tamaño de la carta */
+  left: 23%;  /* Posición relativa al tamaño de la carta */
+}
+
+.descripcion-plan {
+  position: absolute;
+  top: 12vh;
+  left: 30vh;
+  right: 12vh;
+}
+
+.iconos-extra {
+  position: absolute;
+  top: 20vh;
+  left: 13vh;
+  right: 10vh;
+  width: 15vh;
+  height: 2ch;
+}
+
+.descripcion-detallada {
+  position: absolute;
+  top: 31vh;
+  left: 10vh;
+  right: 10vh;
+  bottom: 10vh;
+  padding-left: 7vh;
+  padding-right: 7vh;
+}
+
+.plan_description {
+  font-size: 0.7vw; /* Ajuste proporcional del tamaño de la fuente */
+  line-height: 4.2;
+}
+
+.plan_title{
+  font-size: 1.1vw; /* Ajuste proporcional del tamaño de la fuente */
+}
+
+.close-btn {
+  position: absolute;
+  top: 5vh;
+  right: 13vh;
+  width: 5vh;  /* Ajusta según el tamaño de tu imagen */
+  height: 5vh; /* Ajusta según el tamaño de tu imagen */
+  background-image: url('@/assets/x.png');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+}
+
+.close-btn:hover {
+  opacity: 0.5; /* Efecto de hover opcional */
+}
+
+.back-button {
+  position: absolute;
+  top: 10px; /* Adjust as needed */
+  left: 15px; /* Adjust as needed */
+  background-color: transparent;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  /* Ensure the image is appropriately sized */
+  width: 40px;  /* Or whatever size you want */
+  height: 40px; /* Or whatever size you want */
+  z-index: 1; /* Ensure it's above other elements */
+}
+
+.back-button:hover{
+  opacity: 0.7;
+}
+
+.back-button img {
+  width: 100%;
+  height: 100%;
+  display: block; /* Removes any extra spacing */
+}
+/* Media Queries */
+
+/* Para pantallas más pequeñas (ej: móviles) */
+@media (max-width: 768px) {
+  .letter {
+    width: 80%; /* Ocupa más ancho en pantallas pequeñas */
+    padding: 4vw;
+  }
+
+  .menu {
+    width: 90%;
+    padding: 4vw;
+  }
+
+  .menu button {
+    font-size: 3vw;
+  }
+  h1 {
+    font-size: 4vw;
+  }
+}
+
+/* Para pantallas medianas (ej: tablets) */
+@media (min-width: 769px) and (max-width: 1024px) {
+    .letter {
+      width: 60%;
+      padding: 3vw;
+    }
+
+    .menu {
+      width: 70%;
+      padding: 3vw;
+    }
+    h1 {
+      font-size: 3vw;
+    }
+}

@@ -1,0 +1,12 @@
+# Ignorar node_modules y dependencias
+frontend/node_modules/
+backend/__pycache__/
+backend/.env
+*.log
+
+# Ignorar archivos de compilación de Vue
+frontend/dist/
+frontend/.cache/
+
+# Ignorar archivos del entorno virtual de Python
+backend/venv/
