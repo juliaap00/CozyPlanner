@@ -1,0 +1,177 @@
+<script setup>
+import { ref } from 'vue';
+
+const showGif = ref(false);
+const isRolling = ref(false);
+const isWinning = ref(false);
+const showCongrats = ref(false);
+const showLetterBouncing = ref(false);
+const showLetterOpening = ref(false);
+const showPrizeCard = ref(false);
+const showCoinSelection = ref(true);
+
+const planDetails = ref({ title: "Ir al cine", description: "Disfruta de una película en la gran pantalla." });
+const isCardVisible = ref(false);
+
+const fullMessage = "🎉 ¡Enhorabuena, abre tu premio! 🎉";
+const displayedMessage = ref(""); 
+const showContinueButton = ref(false);
+
+const typeMessage = () => {
+  let index = 0;
+  const interval = setInterval(() => {
+    if (index < fullMessage.length) {
+      displayedMessage.value += fullMessage[index];
+      index++;
+    } else {
+      clearInterval(interval);
+      showContinueButton.value = true;
+    }
+  }, 50);
+};
+
+const selectCoin = () => {
+  showCoinSelection.value = false;
+  showGif.value = true;
+  setTimeout(() => {
+    showGif.value = false;
+    isRolling.value = true;
+    setTimeout(() => {
+      isRolling.value = false;
+      isWinning.value = true;
+      setTimeout(() => {
+        showCongrats.value = true;
+        displayedMessage.value = "";
+        typeMessage();
+      }, 2000);
+    }, 3000);
+  }, 1000);
+};
+
+const revealLetter = () => {
+  showCongrats.value = false;
+  showLetterBouncing.value = true;
+};
+
+const openLetter = () => {
+  showLetterBouncing.value = false;
+  showLetterOpening.value = true;
+  setTimeout(() => {
+    showLetterOpening.value = false;
+    showPrizeCard.value = true;
+    isCardVisible.value = true;
+  }, 2000);
+};
+
+const closeCard = () => {
+  isCardVisible.value = false;
+};
+</script>
+
+<template>
+  <div class="slot-machine-container">
+    <div v-if="showCoinSelection" class="overlay">
+      <div class="coin-selection-overlay">
+        <p class="coin-text">¡Selecciona una moneda!</p>
+        <button @click="selectCoin">Tirar</button>
+      </div>
+    </div>
+    <div class="slot-machine">
+      <img v-if="!showGif && !isRolling && !isWinning" src="@/assets/slot-machine.png" class="slot-image" />
+      <img v-if="showGif" src="@/assets/slot_pull.apng" class="slot-image" />
+      <img v-if="isRolling" src="@/assets/slot-machine-roll.apng" class="slot-image" />
+      <img v-if="isWinning" src="@/assets/slot-machine-win.apng" class="slot-image" />
+    </div>
+    <div v-if="showCongrats" class="congrats-overlay">
+      <p class="show-congrats">{{ displayedMessage }}</p>
+      <p v-if="showContinueButton" class="continue-button" @click="revealLetter">▶ Continuar</p>
+    </div>
+    <div v-if="showLetterBouncing" class="overlay" @click="openLetter">
+      <img src="@/assets/letter_bouncing.apng" class="letter-animation" />
+    </div>
+    <div v-if="showLetterOpening" class="overlay">
+      <img src="@/assets/letter_opening.apng" class="letter-animation" />
+    </div>
+    <div v-if="isCardVisible" class="prize-card-overlay">
+      <div class="prize-card">
+        <button class="close-btn" @click="closeCard">❌</button>
+        <h2>{{ planDetails.title }}</h2>
+        <img src="@/assets/cinema.png" alt="Cine Icon" class="plan-icon" />
+        <p>{{ planDetails.description }}</p>
+      </div>
+    </div>
+  </div>
+</template>
+
+<style scoped>
+.prize-card-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.7);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  backdrop-filter: blur(5px);
+}
+
+.prize-card {
+  background: white;
+  padding: 20px;
+  border-radius: 10px;
+  text-align: center;
+  position: relative;
+  width: 300px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
+}
+
+.close-btn {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: none;
+  border: none;
+  font-size: 18px;
+  cursor: pointer;
+}
+
+  /* Estilos actualizados para la card del premio */
+  .prize-card-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.7);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    backdrop-filter: blur(10px);
+    z-index: 1200;
+  }
+
+  .prize-card {
+    background: #f8e8c0;
+    padding: 20px;
+    border-radius: 0;
+    text-align: center;
+    position: relative;
+    width: 320px;
+    box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.5);
+    border: 8px solid black;
+    image-rendering: pixelated;
+  }
+  
+  .close-btn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: none;
+    border: none;
+    font-size: 18px;
+    cursor: pointer;
+  }
+</style>
